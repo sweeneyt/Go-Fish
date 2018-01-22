@@ -1,6 +1,7 @@
 public class Play {
 
-    public static final int CARDS_TO_START = 8;
+
+    public static final int CARDS_TO_START = 5;
 
     public static void main(String argv[]){
         Deck game = new Deck();

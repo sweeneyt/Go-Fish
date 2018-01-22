@@ -1,13 +1,13 @@
 public class Card {
     String suit;
-    int number;
+    Integer number;
 
-    Card(String suit, int number){
+    Card(String suit, Integer number){
         this.suit = suit;
         this.number = number;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
