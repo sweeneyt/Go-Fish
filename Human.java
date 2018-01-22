@@ -9,10 +9,11 @@ public class Human extends Player{
                 }
 
         }
+        System.out.println();
     }
 
     public void addCardToSets(Integer cardNumber){
-        System.out.println("You got a pair of " + cardNumber + "s");
+        System.out.println("You got a set of " + cardNumber + "s");
         sets.add(cardNumber);
         printPairs();
     }
