@@ -14,8 +14,10 @@ public class Play {
         human.viewHand();
         while(game.goDeck.size() > 0) {
             playersTurn(game, human, computer);
-            playersTurn(game, computer, human);
+            if(game.goDeck.size() > 0)
+                playersTurn(game, computer, human);
         }
+        declareWinner(human, computer);
     }
 
     public static void firstDraw(Deck game, Human human, Computer computer){
@@ -41,6 +43,19 @@ public class Play {
             System.out.println("Player got a set of " + cardNum);
         }
         player.viewHand();
+    }
+
+    public static void declareWinner(Human human, Computer computer){
+        int humanNum = human.countSets();
+        int compNum = computer.countSets();
+        System.out.println("You have " +humanNum+ " sets");
+        System.out.println("Computer has " +compNum+ " sets");
+        if(humanNum > compNum)
+            System.out.println("YOU WIN!!!");
+        else if(compNum > humanNum)
+            System.out.println("COMPUTER WINS!!");
+        else
+            System.out.println("ITS A TIE");
     }
 
 

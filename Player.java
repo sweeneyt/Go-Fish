@@ -68,4 +68,8 @@ public abstract class Player {
         return count;
     }
 
+    public int countSets(){
+        return sets.size();
+    }
+
 }
