@@ -12,33 +12,62 @@ public class Play {
         Computer computer = new Computer();
         firstDraw(game, human, computer);
         human.viewHand();
-        askOpponentForCard(game,human,computer);
+        while(game.goDeck.size() > 0) {
+            playersTurn(game, human, computer);
+            playersTurn(game, computer, human);
+        }
     }
 
     public static void firstDraw(Deck game, Human human, Computer computer){
-        for(int i=0; i<CARDS_TO_START; i++){
-            human.addCardToHand(game.draw());
-        }
-        for(int i=0; i<CARDS_TO_START; i++){
-            computer.addCardToHand(game.draw());
-        }
+            human.addCardToHand(game.draw(CARDS_TO_START));
+            computer.addCardToHand(game.draw(CARDS_TO_START));
     }
 
-    public static void askOpponentForCard(Deck game, Human human, Computer computer){
-        int cardNumber;
-        do {
-            System.out.println("Ask for card: ");
-            cardNumber = scanner.nextInt();
-        }while(!human.checkHand(cardNumber));
-        if(computer.checkHand(cardNumber))
-            switchCards(human, computer, cardNumber);
+    public static void playersTurn(Deck game, Player player, Player opponent){
+        int cardNum;
+        if(player.countNumberInHand() == 0){
+            player.addCardToHand(game.draw(CARDS_TO_START));
+        }
+        do{
+            cardNum = getCardNumFromPlayer(player);
+        }while(!player.checkHand(cardNum));
+        System.out.println(cardNum + " has been requested");
+        if(opponent.checkHand(cardNum))
+            handOverCards(player, opponent, cardNum);
         else
-            human.addCardToHand(game.draw());
-        human.viewHand();
+            cardNum = goFish(player, game);
+        if(player.isASet(cardNum)) {
+            player.moveCardsToSetList(cardNum);
+            System.out.println("Player got a set of " + cardNum);
+        }
+        player.viewHand();
     }
 
-    public static void switchCards(Player playerToReceive, Player playerToGive, int cardNumber){
+
+    public static int getCardNumFromPlayer(Player player){
+        if(player instanceof Human) {
+            System.out.println("Ask Computer for: ");
+            return scanner.nextInt();
+        }
+        else{
+            return randomlySelectCard();
+        }
+    }
+
+    public static int goFish(Player player, Deck game){
+        System.out.println("GO FISH!");
+        Card cardFished = game.draw();
+        player.addCardToHand(cardFished);
+        return cardFished.getNumber();
+    }
+
+    public static void handOverCards(Player playerToReceive, Player playerToGive, int cardNumber){
         ArrayList<Card> cardsToMoveHands = playerToGive.removeCards(cardNumber);
         playerToReceive.addCardToHand(cardsToMoveHands);
+        System.out.println("You obtained " + cardsToMoveHands.size() + " - " +cardNumber + " from your opponent");
+    }
+
+    public static int randomlySelectCard(){
+        return (int)(Math.random()*13)+1;
     }
 }

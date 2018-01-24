@@ -35,4 +35,14 @@ public class Deck {
         goDeck.remove(locationOfCard);
         return cardDrawn;
     }
+
+    public ArrayList<Card> draw(int numberOfCards){
+        ArrayList<Card> cardsDrawn = new ArrayList<>();
+        for(int i=0; i<numberOfCards; i++) {
+            int locationOfCard = (int) (Math.random() * (goDeck.size()));
+            cardsDrawn.add(goDeck.get(locationOfCard));
+            goDeck.remove(locationOfCard);
+        }
+        return cardsDrawn;
+    }
 }

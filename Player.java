@@ -14,18 +14,26 @@ public abstract class Player {
 
 
     public void addCardToHand(Card card){
-        System.out.println(card.getNumber());
+        System.out.println("You fetched a " +card.getNumber());
         hand[card.getNumber()].add(card);
     }
 
     public void addCardToHand(ArrayList<Card> cardsToAdd){
-        hand[cardsToAdd.get(0).getNumber()].addAll(cardsToAdd);
-        System.out.println("You obtained " + cardsToAdd.size() + " " +cardsToAdd.get(0).getNumber());
+        for(int i =0; i<cardsToAdd.size(); i++) {
+            int cardNumber = cardsToAdd.get(i).getNumber();
+            hand[cardNumber].add(cardsToAdd.get(i));
+        }
+    }
+
+    public void moveCardsToSetList(int cardNumber){
+        sets.add(cardNumber);
+        hand[cardNumber].clear();
     }
 
     protected abstract void addCardToSets(Integer cardNumber);
+    protected abstract void viewHand();
 
-    public boolean isASet(Integer cardNumber) {
+    public boolean isASet(int cardNumber) {
         if(hand[cardNumber].size() == 4)
             return true;
         else
@@ -50,6 +58,14 @@ public abstract class Player {
         cardsToMove.addAll(hand[cardNumber]);
         hand[cardNumber].clear();
         return cardsToMove;
+    }
+
+    public int countNumberInHand(){
+        int count = 0;
+        for(int i = 0; i < 14; i++){
+            count += hand[i].size();
+        }
+        return count;
     }
 
 }
