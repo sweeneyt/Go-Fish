@@ -23,12 +23,6 @@ public class Deck {
         }
     }
 
-    public void viewDeck(){
-        for(int i=0; i < goDeck.size(); i++){
-            System.out.print(goDeck.get(i).getSuit()+goDeck.get(i).getNumber() +" ");
-        }
-    }
-
     public Card draw(){
         int locationOfCard = (int)(Math.random()*(goDeck.size()));
         Card cardDrawn = goDeck.get(locationOfCard);

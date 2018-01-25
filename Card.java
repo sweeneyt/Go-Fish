@@ -7,9 +7,7 @@ public class Card {
         this.number = number;
     }
 
-    public Integer getNumber() {
-        return number;
-    }
+    public Integer getNumber() { return number;}
 
     public String getSuit() {
         return suit;

@@ -25,14 +25,6 @@ public abstract class Player {
         }
     }
 
-    public void moveCardsToSetList(int cardNumber){
-        sets.add(cardNumber);
-        hand[cardNumber].clear();
-    }
-
-    protected abstract void addCardToSets(Integer cardNumber);
-    protected abstract void viewHand();
-
     public boolean isASet(int cardNumber) {
         if(hand[cardNumber].size() == 4)
             return true;
@@ -71,5 +63,10 @@ public abstract class Player {
     public int countSets(){
         return sets.size();
     }
+
+    protected abstract void moveCardsToSetList(int cardNumber);
+
+    protected abstract void viewHand();
+
 
 }

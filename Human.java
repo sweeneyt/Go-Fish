@@ -1,7 +1,7 @@
 public class Human extends Player{
 
     public void viewHand() {
-        System.out.println("Player Hand: ");
+        System.out.print("Player Hand: ");
         for(int i = 0; i < 14; i++) {
             if(hand[i].size() >= 1)
                 for (Card card:hand[i]) {
@@ -12,17 +12,19 @@ public class Human extends Player{
         System.out.println();
     }
 
-    public void addCardToSets(Integer cardNumber){
-        System.out.println("You got a set of " + cardNumber + "s");
+    public void moveCardsToSetList(int cardNumber){
         sets.add(cardNumber);
-        printPairs();
+        hand[cardNumber].clear();
+        System.out.println("You got a set of " + cardNumber);
+        printSets();
     }
 
-    public void printPairs(){
-        System.out.println("Your pairs: ");
-        for (int number:sets) {
-            System.out.print(sets.get(number));
+    public void printSets(){
+        System.out.print("Your pairs: ");
+        for (int i = 0; i<sets.size(); i++) {
+            System.out.print(sets.get(i) + " ");
         }
+        System.out.println();
     }
 
 }

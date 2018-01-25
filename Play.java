@@ -28,19 +28,18 @@ public class Play {
     public static void playersTurn(Deck game, Player player, Player opponent){
         int cardNum;
         if(player.countNumberInHand() == 0){
-            player.addCardToHand(game.draw(CARDS_TO_START));
+            player.addCardToHand(game.draw(1));
         }
         do{
             cardNum = getCardNumFromPlayer(player);
         }while(!player.checkHand(cardNum));
-        System.out.println(cardNum + " has been requested");
+        displayCardRequested(player, cardNum);
         if(opponent.checkHand(cardNum))
             handOverCards(player, opponent, cardNum);
         else
             cardNum = goFish(player, game);
         if(player.isASet(cardNum)) {
             player.moveCardsToSetList(cardNum);
-            System.out.println("Player got a set of " + cardNum);
         }
         player.viewHand();
     }
@@ -61,7 +60,7 @@ public class Play {
 
     public static int getCardNumFromPlayer(Player player){
         if(player instanceof Human) {
-            System.out.println("Ask Computer for: ");
+            System.out.print("Ask Computer for: ");
             return scanner.nextInt();
         }
         else{
@@ -70,7 +69,7 @@ public class Play {
     }
 
     public static int goFish(Player player, Deck game){
-        System.out.println("GO FISH!");
+        System.out.print("GO FISH!  --  ");
         Card cardFished = game.draw();
         player.addCardToHand(cardFished);
         return cardFished.getNumber();
@@ -79,10 +78,22 @@ public class Play {
     public static void handOverCards(Player playerToReceive, Player playerToGive, int cardNumber){
         ArrayList<Card> cardsToMoveHands = playerToGive.removeCards(cardNumber);
         playerToReceive.addCardToHand(cardsToMoveHands);
-        System.out.println("You obtained " + cardsToMoveHands.size() + " - " +cardNumber + " from your opponent");
+        displayCardsSwitched(playerToReceive, cardNumber, cardsToMoveHands.size());
     }
 
     public static int randomlySelectCard(){
         return (int)(Math.random()*13)+1;
+    }
+
+    public static void displayCardsSwitched(Player player, int cardNumber, int numOfCards){
+        if(player instanceof Human)
+            System.out.println("You obtained " +numOfCards+ " - " +cardNumber+ " from the computer");
+        else
+            System.out.println("Computer obtained " +numOfCards+ " - " +cardNumber+ " from the you");
+    }
+
+    public static void displayCardRequested(Player player, int cardNum){
+        if(player instanceof Computer)
+            System.out.println("Computer requests a " +cardNum);
     }
 }

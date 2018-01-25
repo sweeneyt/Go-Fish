@@ -4,17 +4,19 @@ public class Computer extends Player {
         hand[card.getNumber()].add(card);
     }
 
-    public void addCardToSets(Integer cardNumber){
-        System.out.println("You got a set of " + cardNumber + "s");
+    public void moveCardsToSetList(int cardNumber){
         sets.add(cardNumber);
-        printPairs();
+        hand[cardNumber].clear();
+        System.out.println("Computer got a set of " + cardNumber);
+        printSets();
     }
 
-    public void printPairs(){
-        System.out.println("Your pairs: ");
-        for (int number:sets) {
-            System.out.print(sets.get(number));
+    public void printSets(){
+        System.out.print("Computer pairs: ");
+        for (int i = 0; i<sets.size(); i++) {
+            System.out.print(sets.get(i) + " ");
         }
+        System.out.println();
     }
 
     public void viewHand(){
